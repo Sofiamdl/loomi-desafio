@@ -5,12 +5,13 @@ import {
   HttpStatus,
   Param,
 } from '@nestjs/common';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { DeleteAdminUseCase } from 'src/domain/admin/use-cases/delete-admin-use-case';
 
+@ApiBearerAuth()
 @ApiTags('admin')
 @Controller('/admin/:id')
 export class DeleteAdminController {

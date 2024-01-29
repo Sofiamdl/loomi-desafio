@@ -4,13 +4,16 @@ import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use
 import { BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from 'src/infra/dtos/users/create-user.dto';
 import { UserType } from '@prisma/client';
-import { Roles } from 'src/infra/auth/decorators/roles.decorator';
+// import { Roles } from 'src/infra/auth/decorators/roles.decorator';
+import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
+// @ApiBearerAuth()
+@IsPublic()
 @Controller('/admin')
 @ApiTags('admin')
 export class CreateAdminController {
   constructor(private registerUserUseCase: RegisterUserUseCase) {}
-  @Roles(UserType.ADMIN)
+  // @Roles(UserType.ADMIN)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({

@@ -6,13 +6,14 @@ import {
   HttpCode,
   Param,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { UpdateAdminDto } from '../../dtos/admin/update-admin.dto';
 import { UpdateAdminUseCase } from 'src/domain/admin/use-cases/update-admin-use-case';
 
+@ApiBearerAuth()
 @ApiTags('admin')
 @Controller('/admin/:id')
 export class UpdateUserController {

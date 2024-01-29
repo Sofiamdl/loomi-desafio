@@ -1,10 +1,11 @@
 import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { FindAdminUseCase } from 'src/domain/admin/use-cases/find-admin-use-case';
 
+@ApiBearerAuth()
 @Controller('/admin/:id')
 @ApiTags('admin')
 export class FindUserController {
