@@ -7,7 +7,7 @@ import { FindAdminUseCase } from 'src/domain/admin/use-cases/find-admin-use-case
 
 @Controller('/admin/:id')
 @ApiTags('admin')
-export class FindAllUserController {
+export class FindUserController {
   constructor(private useCase: FindAdminUseCase) {}
   @Roles(UserType.ADMIN)
   @Get()

@@ -8,7 +8,7 @@ import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 
 @Controller('/admin')
 @ApiTags('admin')
-export class CreateUserController {
+export class CreateAdminController {
   constructor(private registerUserUseCase: RegisterUserUseCase) {}
   @Roles(UserType.ADMIN)
   @Post()

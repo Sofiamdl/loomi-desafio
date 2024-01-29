@@ -10,12 +10,12 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { UpdateAdminDto } from './dto/update-admin.dto';
+import { UpdateAdminDto } from '../../dtos/admin/update-admin.dto';
 import { UpdateAdminUseCase } from 'src/domain/admin/use-cases/update-admin-use-case';
 
 @ApiTags('admin')
 @Controller('/admin/:id')
-export class CreateUserController {
+export class UpdateUserController {
   constructor(private registerUserUseCase: UpdateAdminUseCase) {}
   @Roles(UserType.ADMIN)
   @Patch()
