@@ -3,6 +3,9 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
 import { CreateUserDto } from 'src/infra/dtos/create-user-dto';
 import { BadRequestException } from '@nestjs/common';
+// import { UserType } from '@prisma/client';
+// import { Roles } from 'src/infra/auth/guards/permission.guard';
+// @Roles(UserType.CLIENT)
 
 @Controller('/user')
 @ApiTags('user')
