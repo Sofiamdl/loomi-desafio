@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from './infra/http.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './infra/database/database.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './infra/auth/auth.module';
 
 @Module({
   imports: [
