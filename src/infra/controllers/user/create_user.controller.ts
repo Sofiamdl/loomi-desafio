@@ -3,6 +3,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
 import { CreateUserDto } from 'src/infra/dtos/create-user-dto';
 import { BadRequestException } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 // import { UserType } from '@prisma/client';
 // import { Roles } from 'src/infra/auth/guards/permission.guard';
 // @Roles(UserType.CLIENT)
@@ -10,12 +11,15 @@ import { BadRequestException } from '@nestjs/common';
 @Controller('/user')
 @ApiTags('user')
 export class CreateUserController {
-  constructor(private registerUserUseCase: RegisterUserUseCase) {}
+  constructor(
+    private registerUserUseCase: RegisterUserUseCase,
+    private mailerService: MailerService,
+  ) {}
 
   @Post()
   @ApiResponse({
     status: 201,
-    description: 'Created.',
+    description: 'User Created.',
   })
   @ApiResponse({
     status: 500,
@@ -29,6 +33,14 @@ export class CreateUserController {
         email,
         name,
         password,
+      });
+
+      this.mailerService.sendMail({
+        to: 'sofiamelo2610@gmail.com',
+        from: process.env.EMAIL,
+        subject: 'Password Confirmation',
+        text: 'Your code is:',
+        html: '<h1>Confirm<h1>',
       });
 
       return { data: result.user };
