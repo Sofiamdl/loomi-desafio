@@ -3,20 +3,11 @@ import { UserType } from '@prisma/client';
 
 export type Replace<T, R> = Omit<T, keyof R> & R;
 
-export interface UserProps {
-  name: string;
-  email: string;
-  password_hash: string;
-  created_at: Date;
-  updated_at: Date;
-  type: UserType;
-}
-
 export class User {
   public readonly id: string;
   name: string;
   email: string;
-  password_hash: string;
+  password: string;
   created_at: Date;
   updated_at: Date;
   type: UserType;

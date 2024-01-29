@@ -28,7 +28,7 @@ export class RegisterUserUseCase
     const user = new User({
       name,
       email,
-      password_hash: password,
+      password: password,
       created_at: new Date(),
       updated_at: new Date(),
       type: UserType.CLIENT,
