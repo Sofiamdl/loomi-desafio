@@ -8,6 +8,7 @@ async function bootstrap() {
     .setTitle('Documentação com Swagger - Loomi Desafio')
     .setDescription('Sistema de Gerenciamento de um e-commerce simplificado.')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

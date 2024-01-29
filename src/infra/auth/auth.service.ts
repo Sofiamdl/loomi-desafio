@@ -23,10 +23,8 @@ export class AuthService {
           password: undefined,
         };
       }
-      // nao encontrou user e ou a senha n corresponde
       throw new Error('Email ou senha incorretas.');
     }
-    console.log(email, password);
     throw new Error('Method not implemented.');
   }
 

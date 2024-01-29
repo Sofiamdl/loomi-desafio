@@ -5,10 +5,11 @@ import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { FindAdminsUseCase } from 'src/domain/admin/use-cases/find-all-admin-use-case';
 
-@Controller('/admin')
 @ApiTags('admin')
+@Controller('/admin')
 export class FindAllUserController {
   constructor(private useCase: FindAdminsUseCase) {}
+
   @Roles(UserType.ADMIN)
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -24,10 +25,12 @@ export class FindAllUserController {
   })
   async handle() {
     try {
+      console.log('aq');
       const result = await this.useCase.execute();
 
       return { data: result };
     } catch (err) {
+      console.log('eo');
       throw new BadRequestException();
     }
   }
