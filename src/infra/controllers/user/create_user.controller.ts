@@ -36,7 +36,7 @@ export class CreateUserController {
       });
 
       this.mailerService.sendMail({
-        to: 'sofiamelo2610@gmail.com',
+        to: email,
         from: process.env.EMAIL,
         subject: 'Password Confirmation',
         text: 'Your code is:',
