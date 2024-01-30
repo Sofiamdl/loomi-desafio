@@ -3,10 +3,19 @@ import { PrismaService } from '../prisma.service';
 import { OrderRepository } from 'src/domain/order/repositories/order-repository';
 import { Order } from 'src/domain/order/entities/order.entity';
 import { IQueryFindAllOrder } from 'src/domain/order/use-cases/find-all-order-use-case';
+import { OrderStatus } from '@prisma/client';
 
 @Injectable()
 export class OrderRepositoryImpl implements OrderRepository {
   constructor(private readonly prismaService: PrismaService) {}
+
+  async update(id: string, data: { status?: OrderStatus }): Promise<Order> {
+    const order = await this.prismaService.order.update({
+      where: { id },
+      data,
+    });
+    return order;
+  }
 
   async findAll(query: IQueryFindAllOrder): Promise<[Order]> {
     const products = (await this.prismaService.order.findMany({
