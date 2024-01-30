@@ -6,6 +6,21 @@ import { Product } from 'src/domain/product/entities/product.entity';
 @Injectable()
 export class ProductRepositoryImpl implements ProductRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async update(
+    id: string,
+    data: {
+      description?: string;
+      name?: string;
+      price?: number;
+      quantity?: number;
+    },
+  ): Promise<Product> {
+    const product = await this.prismaService.product.update({
+      where: { id },
+      data,
+    });
+    return product;
+  }
 
   async findById(id: string): Promise<Product> {
     const product = await this.prismaService.product.findUnique({
