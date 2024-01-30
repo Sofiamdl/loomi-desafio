@@ -55,6 +55,7 @@ model Order {
   client     User @relation(fields: [clientId], references: [id])
   clientId   String  
   status     OrderStatus
+  total      Float
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   itens      Item[]

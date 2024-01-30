@@ -8,6 +8,8 @@ import { AccountRepository } from 'src/domain/client/repositories/account-reposi
 import { AccountRepositoryImpl } from './prisma/repositories/prisma-account-repository';
 import { ProductRepository } from 'src/domain/product/repositories/product-repository';
 import { ProductRepositoryImpl } from './prisma/repositories/prisma-product-repository';
+import { OrderRepository } from 'src/domain/order/repositories/order-repository';
+import { OrderRepositoryImpl } from './prisma/repositories/prisma-order-repository';
 
 @Module({
   providers: [
@@ -28,6 +30,10 @@ import { ProductRepositoryImpl } from './prisma/repositories/prisma-product-repo
       provide: ProductRepository,
       useClass: ProductRepositoryImpl,
     },
+    {
+      provide: OrderRepository,
+      useClass: OrderRepositoryImpl,
+    },
   ],
   exports: [
     {
@@ -45,6 +51,10 @@ import { ProductRepositoryImpl } from './prisma/repositories/prisma-product-repo
     {
       provide: ProductRepository,
       useClass: ProductRepositoryImpl,
+    },
+    {
+      provide: OrderRepository,
+      useClass: OrderRepositoryImpl,
     },
   ],
 })

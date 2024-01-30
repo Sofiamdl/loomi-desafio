@@ -6,6 +6,7 @@ CREATE TABLE "orders" (
     "id" TEXT NOT NULL,
     "clientId" TEXT NOT NULL,
     "status" "OrderStatus" NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
