@@ -3,7 +3,7 @@ import { Product } from '../entities/product.entity';
 export abstract class ProductRepository {
   abstract create(product: Product): Promise<Product>;
   // abstract findAll(): Promise<[Account]>;
-  // abstract findById(id: string): Promise<Account>;
+  abstract findById(id: string): Promise<Product>;
   // abstract update(
   //   id: string,
   //   data: {
@@ -12,5 +12,5 @@ export abstract class ProductRepository {
   //     address?: string;
   //   },
   // ): Promise<Account>;
-  // abstract delete(id: string): Promise<void>;
+  abstract delete(id: string): Promise<void>;
 }
