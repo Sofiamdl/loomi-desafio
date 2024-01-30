@@ -5,5 +5,5 @@ export abstract class AccountRepository {
   // abstract findAll(): Promise<[User]>;
   // abstract findById(id: string): Promise<User>;
   // abstract update(data: { name: string; id: string }): Promise<User>;
-  // abstract delete(id: string): Promise<void>;
+  abstract delete(id: string): Promise<void>;
 }

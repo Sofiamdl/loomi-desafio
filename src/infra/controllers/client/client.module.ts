@@ -13,18 +13,20 @@ import { DatabaseModule } from 'src/infra/database/database.module';
 
 import { RegisterClientUseCase } from 'src/domain/client/create-client-use-case';
 import { CreateClientController } from './create-client.controller';
+import { DeleteClientController } from './delete-client.controller';
+import { DeleteClientUseCase } from 'src/domain/user/use-cases/delete-client-use-case';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [
     CreateClientController,
-    // DeleteAdminController,
+    DeleteClientController,
     // FindAllUserController,
     // FindUserController,
     // UpdateUserController,
   ],
   providers: [
-    // DeleteAdminUseCase,
+    DeleteClientUseCase,
     // FindAdminsUseCase,
     // FindAdminUseCase,
     // UpdateAdminUseCase,

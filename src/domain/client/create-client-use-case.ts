@@ -44,7 +44,6 @@ export class RegisterClientUseCase
     });
 
     const userCreated = await this.usersRepository.create(user);
-    console.log(userCreated);
 
     const userAccount = new Account({
       address,
