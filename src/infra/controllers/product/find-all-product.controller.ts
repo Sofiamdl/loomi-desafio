@@ -12,7 +12,7 @@ import { QueryProductDto } from 'src/infra/dtos/product/query-product-dto';
 export class FindAllProductController {
   constructor(private useCase: FindAllProductUseCase) {}
 
-  @Roles(UserType.ADMIN)
+  @Roles(UserType.ADMIN, UserType.CLIENT)
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
@@ -25,8 +25,8 @@ export class FindAllProductController {
     status: 500,
     description: 'Internal server error.',
   })
-  @ApiQuery({ name: 'page', type: 'number', required: false })
-  @ApiQuery({ name: 'pageAmount', type: 'number', required: false })
+  @ApiQuery({ name: 'page', type: 'number', required: true })
+  @ApiQuery({ name: 'pageAmount', type: 'number', required: true })
   @ApiQuery({ name: 'name', type: 'string', required: false })
   @ApiQuery({ name: 'description', type: 'string', required: false })
   @ApiQuery({ name: 'isAvailable', type: 'bool', required: false })

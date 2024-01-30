@@ -1,10 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export class QueryProductDto {
   @ApiProperty()
+  @IsNotEmpty()
   page: number;
 
   @ApiProperty()
+  @IsNotEmpty()
   pageAmount: number;
 
   @ApiProperty()

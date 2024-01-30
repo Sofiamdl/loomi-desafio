@@ -6,8 +6,8 @@ import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { FindProductUseCase } from 'src/domain/product/use-cases/find-product-use-case';
 
 @ApiBearerAuth()
-@Controller('/admin/:id')
-@ApiTags('admin')
+@Controller('/product/:id')
+@ApiTags('product')
 export class FindProductController {
   constructor(private useCase: FindProductUseCase) {}
   @Roles(UserType.ADMIN, UserType.CLIENT)

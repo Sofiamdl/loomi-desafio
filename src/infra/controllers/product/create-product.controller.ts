@@ -2,13 +2,11 @@ import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
-import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { CreateProductDto } from 'src/infra/dtos/product/creat-product-dto';
 import { CreateProductUseCase } from 'src/domain/product/use-cases/create-product-use-case';
 
 @ApiBearerAuth()
-@IsPublic()
 @Controller('/product')
 @ApiTags('product')
 export class CreateProductController {

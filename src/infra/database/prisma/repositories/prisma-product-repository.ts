@@ -9,40 +9,35 @@ import { Product } from 'src/domain/product/entities/product.entity';
 @Injectable()
 export class ProductRepositoryImpl implements ProductRepository {
   constructor(private readonly prismaService: PrismaService) {}
+
   async findAll(query: IFindAllProductRepository): Promise<[Product]> {
     const products = (await this.prismaService.product.findMany({
       where: {
         AND: [
-          query.minPrice != undefined &&
-            query.maxPrice != undefined && {
-              price: {
-                gte: query.minPrice,
-                lte: query.maxPrice,
-              },
+          {
+            price: {
+              gte: query.minPrice,
+              lte: query.maxPrice,
             },
-          query.name != undefined && {
+          },
+          {
             name: {
               contains: query.name,
               mode: 'insensitive',
             },
           },
-          query.description != undefined && {
+          {
             description: {
               contains: query.description,
               mode: 'insensitive',
             },
           },
-          query.isAvailable != undefined &&
-            (query.isAvailable
-              ? {
-                  quantity: { not: 0 },
-                }
-              : {
-                  quantity: 0,
-                }),
+          {
+            quantity: query.isAvailable,
+          },
         ],
       },
-      take: query.pageAmount,
+      take: Number(query.pageAmount),
       skip: (query.page - 1) * query.pageAmount,
     })) as [Product];
     return products;

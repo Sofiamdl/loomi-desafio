@@ -1,11 +1,12 @@
 import { Product } from '../entities/product.entity';
+import { Availability } from '../use-cases/find-all-product-use-case';
 
 export interface IFindAllProductRepository {
   page?: number;
   pageAmount?: number;
   description?: string;
   name?: string;
-  isAvailable?: boolean;
+  isAvailable?: Availability;
   maxPrice?: number;
   minPrice?: number;
 }
