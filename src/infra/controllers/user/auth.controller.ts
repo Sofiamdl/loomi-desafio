@@ -5,12 +5,14 @@ import {
   Post,
   UseGuards,
   Request,
+  Body,
 } from '@nestjs/common';
 import { AuthService } from '../../auth/auth.service';
 import { LocalAuthGuard } from '../../auth/guards/local-auth.guard';
 import { AuthRequest } from '../../auth/models/AuthRequest';
 import { IsPublic } from '../../auth/decorators/is-public.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { LoginDto } from 'src/infra/dtos/login-dto';
 
 @IsPublic()
 @ApiTags('auth')
@@ -21,7 +23,8 @@ export class AuthController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  login(@Request() req: AuthRequest) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  login(@Request() req: AuthRequest, @Body() _body: LoginDto) {
     return this.authService.login(req.user);
   }
 }

@@ -1,24 +1,27 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
 import { BadRequestException } from '@nestjs/common';
-import { MailerService } from '@nestjs-modules/mailer';
 import { CreateUserDto } from 'src/infra/dtos/users/create-user.dto';
 import { UserType } from '@prisma/client';
+// import { Roles } from 'src/infra/auth/decorators/roles.decorator';
+import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
-@Controller('/user')
-@ApiTags('user')
-export class CreateUserController {
-  constructor(
-    private registerUserUseCase: RegisterUserUseCase,
-    private mailerService: MailerService,
-  ) {}
-
+// @ApiBearerAuth()
+@IsPublic()
+@Controller('/admin')
+@ApiTags('admin')
+export class CreateAdminController {
+  constructor(private registerUserUseCase: RegisterUserUseCase) {}
+  // @Roles(UserType.ADMIN)
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: 201,
-    description: 'User Created.',
+    description: 'User Admin Created.',
   })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({
     status: 500,
     description: 'Internal server error.',
@@ -31,15 +34,7 @@ export class CreateUserController {
         email,
         name,
         password,
-        type: UserType.CLIENT,
-      });
-
-      this.mailerService.sendMail({
-        to: email,
-        from: process.env.EMAIL,
-        subject: 'Password Confirmation',
-        text: 'Your code is:',
-        html: '<h1>Confirm<h1>',
+        type: UserType.ADMIN,
       });
 
       return { data: result.user };
