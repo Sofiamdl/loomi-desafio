@@ -15,6 +15,13 @@ enum UserType {
   CLIENT
 }
 
+enum OrderStatus {
+  RECEIVED
+  PREPARING
+  DISPACHED
+  DELIVERED
+}
+
 model User {
   id            String   @id @default(uuid())
   name          String
@@ -24,6 +31,7 @@ model User {
   updated_at    DateTime @updatedAt
   type          UserType
   client        Account?
+  order         Order[]
 
   @@map("users")
 }
@@ -40,4 +48,37 @@ model Account {
   userId     String @unique 
 
   @@map("clients")
+}
+
+model Order {
+  id         String   @id @default(uuid())
+  client     User @relation(fields: [clientId], references: [id])
+  clientId   String  
+  status     OrderStatus
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  itens      Item[]
+  @@map("orders")
+}
+
+model Product {
+  id         String   @id @default(uuid())
+  name       String
+  description String
+  price      Float
+  quantity   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  itens      Item[]
+
+  @@map("products")
+}
+
+model Item {
+  id         String   @id @default(uuid())
+  order     Order @relation(fields: [orderId], references: [id])
+  orderId   String  
+  product     Product @relation(fields: [productId], references: [id])
+  productId   String  
+  @@map("itens")
 }
