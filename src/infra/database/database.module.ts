@@ -4,6 +4,8 @@ import { UserRepository } from 'src/domain/user/repositories/user-repository';
 import { UserRepositoryImpl } from './prisma/repositories/prisma-user-repository';
 import { AdminRepository } from 'src/domain/admin/repositories/admin-repository';
 import { AdminRepositoryImpl } from './prisma/repositories/prisma-admin-repository';
+import { AccountRepository } from 'src/domain/client/repositories/account-repository';
+import { AccountRepositoryImpl } from './prisma/repositories/prisma-account-repository';
 
 @Module({
   providers: [
@@ -16,6 +18,10 @@ import { AdminRepositoryImpl } from './prisma/repositories/prisma-admin-reposito
       provide: AdminRepository,
       useClass: AdminRepositoryImpl,
     },
+    {
+      provide: AccountRepository,
+      useClass: AccountRepositoryImpl,
+    },
   ],
   exports: [
     {
@@ -25,6 +31,10 @@ import { AdminRepositoryImpl } from './prisma/repositories/prisma-admin-reposito
     {
       provide: AdminRepository,
       useClass: AdminRepositoryImpl,
+    },
+    {
+      provide: AccountRepository,
+      useClass: AccountRepositoryImpl,
     },
   ],
 })

@@ -7,9 +7,10 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from 'src/infra/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AdminModule } from './controllers/admin/admin.module';
+import { ClientModule } from './controllers/client/client.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, AdminModule],
+  imports: [DatabaseModule, AuthModule, AdminModule, ClientModule],
   controllers: [CreateUserController],
   providers: [
     RegisterUserUseCase,
