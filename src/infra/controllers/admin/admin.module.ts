@@ -9,7 +9,7 @@ import { FindAdminsUseCase } from 'src/domain/admin/use-cases/find-all-admin-use
 import { FindAdminUseCase } from 'src/domain/admin/use-cases/find-admin-use-case';
 import { UpdateAdminUseCase } from 'src/domain/admin/use-cases/update-admin-use-case';
 import { DatabaseModule } from 'src/infra/database/database.module';
-import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
+import { RegisterUserUseCase } from 'src/domain/client/use-cases/register-user-use-case';
 
 @Module({
   imports: [DatabaseModule],

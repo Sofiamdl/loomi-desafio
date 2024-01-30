@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
+import { RegisterUserUseCase } from 'src/domain/client/use-cases/register-user-use-case';
 import { CreateUserController } from './controllers/user/create_user.controller';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from 'src/infra/auth/auth.module';

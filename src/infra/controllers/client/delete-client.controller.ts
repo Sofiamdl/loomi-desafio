@@ -10,7 +10,7 @@ import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { DeleteClientUseCase } from 'src/domain/user/use-cases/delete-client-use-case';
+import { DeleteClientUseCase } from 'src/domain/client/use-cases/delete-client-use-case';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
 
 @ApiBearerAuth()

@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
+import { RegisterUserUseCase } from 'src/domain/client/use-cases/register-user-use-case';
 import { BadRequestException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { CreateUserDto } from 'src/infra/dtos/users/create-user.dto';

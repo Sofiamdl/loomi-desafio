@@ -12,7 +12,7 @@ import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { UpdateClientDto } from 'src/infra/dtos/client/update-client-dto';
-import { UpdateClientUseCase } from 'src/domain/user/use-cases/update-client-use-case';
+import { UpdateClientUseCase } from 'src/domain/client/use-cases/update-client-use-case';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
 
 @ApiBearerAuth()

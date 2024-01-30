@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { FindClientUseCase } from 'src/domain/user/use-cases/find-client-use-case';
+import { FindClientUseCase } from 'src/domain/client/use-cases/find-client-use-case';
 
 @ApiBearerAuth()
 @Controller('/client/:id')

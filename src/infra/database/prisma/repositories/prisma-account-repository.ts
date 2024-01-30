@@ -4,7 +4,7 @@ import { AccountRepository } from 'src/domain/client/repositories/account-reposi
 import {
   Account,
   AccountWithoutUser,
-} from 'src/domain/user/entities/account.entity';
+} from 'src/domain/client/entities/account.entity';
 
 @Injectable()
 export class AccountRepositoryImpl implements AccountRepository {
