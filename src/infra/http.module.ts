@@ -8,9 +8,16 @@ import { JwtAuthGuard } from 'src/infra/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AdminModule } from './controllers/admin/admin.module';
 import { ClientModule } from './controllers/client/client.module';
+import { ProductModule } from './controllers/product/product.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, AdminModule, ClientModule],
+  imports: [
+    DatabaseModule,
+    AuthModule,
+    AdminModule,
+    ClientModule,
+    ProductModule,
+  ],
   controllers: [CreateUserController],
   providers: [
     RegisterUserUseCase,
