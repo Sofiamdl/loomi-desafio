@@ -11,25 +11,31 @@ import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/infra/database/database.module';
 // import { RegisterUserUseCase } from 'src/domain/user/use-cases/register-user-use-case';
 
-import { RegisterClientUseCase } from 'src/domain/client/create-client-use-case';
+import { RegisterClientUseCase } from 'src/domain/user/use-cases/create-client-use-case';
 import { CreateClientController } from './create-client.controller';
 import { DeleteClientController } from './delete-client.controller';
 import { DeleteClientUseCase } from 'src/domain/user/use-cases/delete-client-use-case';
+import { FindAllClientController } from './find-all-client.controller';
+import { FindClientController } from './find-client.controller';
+import { UpdateClientController } from './update-client.controller';
+import { FindClientUseCase } from 'src/domain/user/use-cases/find-client-use-case';
+import { FindAllClientUseCase } from 'src/domain/user/use-cases/find-all-client-use-case';
+import { UpdateClientUseCase } from 'src/domain/user/use-cases/update-client-use-case';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [
     CreateClientController,
     DeleteClientController,
-    // FindAllUserController,
-    // FindUserController,
-    // UpdateUserController,
+    FindAllClientController,
+    FindClientController,
+    UpdateClientController,
   ],
   providers: [
     DeleteClientUseCase,
-    // FindAdminsUseCase,
-    // FindAdminUseCase,
-    // UpdateAdminUseCase,
+    FindClientUseCase,
+    FindAllClientUseCase,
+    UpdateClientUseCase,
     RegisterClientUseCase,
   ],
 })

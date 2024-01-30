@@ -26,12 +26,10 @@ export class FindAllUserController {
   })
   async handle() {
     try {
-      console.log('aq');
       const result = await this.useCase.execute();
 
       return { data: result };
     } catch (err) {
-      console.log('eo');
       throw new BadRequestException();
     }
   }

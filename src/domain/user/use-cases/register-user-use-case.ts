@@ -3,6 +3,7 @@ import { UseCase } from '../../../core/use-case';
 import { User } from '../entities/user.entity';
 import { UserRepository } from '../repositories/user-repository';
 import { UserType } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 export interface RegisterUserUseCaseRequest {
   name: string;
@@ -29,7 +30,7 @@ export class RegisterUserUseCase
     const user = new User({
       name,
       email,
-      password: password,
+      password: await bcrypt.hash(password, 10),
       created_at: new Date(),
       updated_at: new Date(),
       type,

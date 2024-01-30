@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UserType } from '@prisma/client';
-import { Account } from '../user/entities/account.entity';
-import { AccountRepository } from './repositories/account-repository';
-import { User } from '../user/entities/user.entity';
+import { Account } from '../entities/account.entity';
+import { AccountRepository } from '../../client/repositories/account-repository';
+import { User } from '../entities/user.entity';
 import { UseCase } from 'src/core/use-case';
-import { UserRepository } from '../user/repositories/user-repository';
+import { UserRepository } from '../repositories/user-repository';
+import * as bcrypt from 'bcrypt';
 
 export interface RegisterClientUseCaseRequest {
   name: string;
@@ -37,7 +38,7 @@ export class RegisterClientUseCase
     const user = new User({
       name,
       email,
-      password: password,
+      password: await bcrypt.hash(password, 10),
       created_at: new Date(),
       updated_at: new Date(),
       type: UserType.CLIENT,

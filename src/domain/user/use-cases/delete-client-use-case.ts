@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UseCase } from '../../../core/use-case';
 import { AccountRepository } from 'src/domain/client/repositories/account-repository';
 import { AdminRepository } from 'src/domain/admin/repositories/admin-repository';
+import { UserType } from '@prisma/client';
 
 export interface DeleteClientUseCaseRequest {
   id: string;
@@ -25,7 +26,7 @@ export class DeleteClientUseCase
     const { id, idOfCurrentUser } = request;
     const isUserAdmin = await this.adminRepository.findById(idOfCurrentUser);
 
-    if (!isUserAdmin) {
+    if (isUserAdmin.type != UserType.ADMIN) {
       if (id != idOfCurrentUser) {
         throw new BadRequestException();
       }
