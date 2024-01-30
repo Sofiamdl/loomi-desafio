@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { OrderStatus } from '@prisma/client';
-import { Order } from './entities/order.entity';
+import { Order } from '../entities/order.entity';
 import { UseCase } from 'src/core/use-case';
-import { OrderRepository } from './repositories/order-repository';
+import { OrderRepository } from '../repositories/order-repository';
 
 export interface CreateOrderUseCaseRequest {
   id: string;

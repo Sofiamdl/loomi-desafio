@@ -10,7 +10,7 @@ import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
-import { CreateOrderUseCase } from 'src/domain/order/create-order-use-case';
+import { CreateOrderUseCase } from 'src/domain/order/use-cases/create-order-use-case';
 
 @ApiBearerAuth()
 @Controller('/order')
