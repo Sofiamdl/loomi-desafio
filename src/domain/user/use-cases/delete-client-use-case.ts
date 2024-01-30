@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UseCase } from '../../../core/use-case';
 import { AccountRepository } from 'src/domain/client/repositories/account-repository';
 import { AdminRepository } from 'src/domain/admin/repositories/admin-repository';
@@ -26,13 +30,16 @@ export class DeleteClientUseCase
     const { id, idOfCurrentUser } = request;
     const isUserAdmin = await this.adminRepository.findById(idOfCurrentUser);
 
+    const isSameUser = await this.accountRepository.findById(id);
+    if (!isUserAdmin || !isSameUser) throw new NotFoundException();
+
     if (isUserAdmin.type != UserType.ADMIN) {
-      if (id != idOfCurrentUser) {
+      if (isSameUser.userId != idOfCurrentUser) {
         throw new BadRequestException();
       }
     }
     await this.accountRepository.delete(id);
-    await this.adminRepository.delete(id);
+    await this.adminRepository.delete(idOfCurrentUser);
 
     return;
   }

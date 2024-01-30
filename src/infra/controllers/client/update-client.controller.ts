@@ -39,7 +39,6 @@ export class UpdateClientController {
     @Request() req: AuthRequest,
   ) {
     const { fullName, contact, address } = body;
-
     try {
       const result = await this.useCase.execute({
         id,

@@ -37,7 +37,7 @@ export class RegisterUserUseCase
     });
 
     await this.usersRepository.create(user);
-
+    user.password = undefined;
     return { user };
   }
 }

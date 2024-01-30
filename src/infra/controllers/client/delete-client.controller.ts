@@ -18,7 +18,8 @@ import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
 @Controller('/client/:id')
 export class DeleteClientController {
   constructor(private useCase: DeleteClientUseCase) {}
-  @Roles(UserType.CLIENT)
+
+  @Roles(UserType.CLIENT, UserType.ADMIN)
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({

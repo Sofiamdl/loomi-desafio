@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { AccountRepository } from 'src/domain/client/repositories/account-repository';
-import { Account } from 'src/domain/user/entities/account.entity';
+import {
+  Account,
+  AccountWithoutUser,
+} from 'src/domain/user/entities/account.entity';
 
 @Injectable()
 export class AccountRepositoryImpl implements AccountRepository {
@@ -9,7 +12,7 @@ export class AccountRepositoryImpl implements AccountRepository {
 
   async update(
     id: string,
-    data: { fullName: string; contact: string; address: string },
+    data: { name?: string; contact?: string; address?: string },
   ): Promise<Account> {
     const user = await this.prismaService.account.update({
       where: { id },
@@ -24,7 +27,12 @@ export class AccountRepositoryImpl implements AccountRepository {
   }
 
   async findById(id: string): Promise<Account> {
-    const user = await this.prismaService.account.findUnique({ where: { id } });
+    const user = await this.prismaService.account.findUnique({
+      where: { id },
+      include: {
+        user: true,
+      },
+    });
     return user;
   }
 
@@ -33,7 +41,7 @@ export class AccountRepositoryImpl implements AccountRepository {
     return;
   }
 
-  async create(user: Account): Promise<Account> {
+  async create(user: AccountWithoutUser): Promise<Account> {
     const userCreated = await this.prismaService.account.create({ data: user });
     return userCreated;
   }

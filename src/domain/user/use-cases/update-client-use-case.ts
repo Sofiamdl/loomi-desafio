@@ -20,22 +20,25 @@ export interface UpdateUseCaseResponse {
 export class UpdateClientUseCase
   implements UseCase<UpdateUseCaseRequest, UpdateUseCaseResponse>
 {
-  private adminRepository: AdminRepository;
-  constructor(private repository: AccountRepository) {}
+  constructor(
+    private repository: AccountRepository,
+    private adminRepository: AdminRepository,
+  ) {}
 
   async execute(request: UpdateUseCaseRequest): Promise<UpdateUseCaseResponse> {
     const { id, fullName, contact, address, idOfCurrentUser } = request;
-
     const isUserAdmin = await this.adminRepository.findById(idOfCurrentUser);
 
+    const isSameUser = await this.repository.findById(id);
+
     if (isUserAdmin.type != UserType.ADMIN) {
-      if (id != idOfCurrentUser) {
+      if (isSameUser.userId != idOfCurrentUser) {
         throw new BadRequestException();
       }
     }
 
     const data = {
-      fullName,
+      name: fullName,
       contact,
       address,
     };

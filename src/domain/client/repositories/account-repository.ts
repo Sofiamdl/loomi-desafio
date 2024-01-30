@@ -7,9 +7,9 @@ export abstract class AccountRepository {
   abstract update(
     id: string,
     data: {
-      fullName: string;
-      contact: string;
-      address: string;
+      name?: string;
+      contact?: string;
+      address?: string;
     },
   ): Promise<Account>;
   abstract delete(id: string): Promise<void>;
