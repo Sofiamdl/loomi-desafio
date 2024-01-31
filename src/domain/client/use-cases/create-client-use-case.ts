@@ -6,6 +6,7 @@ import { User } from '../../user/entities/user.entity';
 import { UseCase } from 'src/core/use-case';
 import { UserRepository } from '../../user/repositories/user-repository';
 import * as bcrypt from 'bcrypt';
+import { MailerService } from '@nestjs-modules/mailer';
 
 export interface RegisterClientUseCaseRequest {
   name: string;
@@ -28,6 +29,7 @@ export class RegisterClientUseCase
   constructor(
     private usersRepository: UserRepository,
     private accountRepository: AccountRepository,
+    private mailerService: MailerService,
   ) {}
 
   async execute(
@@ -45,7 +47,7 @@ export class RegisterClientUseCase
     });
 
     const userCreated = await this.usersRepository.create(user);
-
+    const randomCode = String(Math.floor(Math.random() * 900000) + 100000);
     const userAccount = new Account({
       address,
       name: fullName,
@@ -53,12 +55,20 @@ export class RegisterClientUseCase
       status: false,
       created_at: new Date(),
       updated_at: new Date(),
-      // user: userCreated,
       userId: userCreated.id,
+      confirmation_code: randomCode,
     });
 
     const accountCreated = await this.accountRepository.create(userAccount);
-    // enviar codigo de confirmacao para ativar conta
+
+    this.mailerService.sendMail({
+      to: email,
+      from: process.env.EMAIL,
+      subject: 'Password Confirmation',
+      text: `Your code is: ${randomCode}`,
+      html: '',
+    });
+
     return { user: accountCreated };
   }
 }
