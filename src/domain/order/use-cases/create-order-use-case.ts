@@ -26,9 +26,10 @@ export class CreateOrderUseCase
     const order = new Order({
       clientId: id,
       total: 0,
-      status: OrderStatus.PREPARING,
+      status: OrderStatus.OPENED,
       created_at: new Date(),
       updated_at: new Date(),
+      payment_intent: undefined,
     });
 
     await this.repository.create(order);

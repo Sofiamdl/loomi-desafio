@@ -61,6 +61,8 @@ model Order {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   itens      Item[]
+  payment_intent String?
+
   @@map("orders")
 }
 
@@ -75,6 +77,7 @@ model Product {
   itens      Item[]
 
   @@map("products")
+  
 }
 
 model Item {

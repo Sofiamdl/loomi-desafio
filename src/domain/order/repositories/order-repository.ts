@@ -9,7 +9,9 @@ export abstract class OrderRepository {
   abstract update(
     id: string,
     data: {
-      status: OrderStatus;
+      status?: OrderStatus;
+      payment_intent?: string;
+      total?: number;
     },
   ): Promise<Order>;
   abstract delete(id: string): Promise<void>;

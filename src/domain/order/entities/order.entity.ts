@@ -10,6 +10,7 @@ export class Order {
   total: number;
   created_at: Date;
   updated_at: Date;
+  payment_intent: string;
   // itens: {
   //   dataType: Item[];
   // };

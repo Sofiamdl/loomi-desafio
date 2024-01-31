@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "OrderStatus" AS ENUM ('RECEIVED', 'PREPARING', 'DISPACHED', 'DELIVERED');
+CREATE TYPE "OrderStatus" AS ENUM ('OPENED', 'CLOSED', 'INVALID', 'PREPARING', 'DISPACHED', 'DELIVERED');
 
 -- CreateTable
 CREATE TABLE "orders" (
@@ -9,6 +9,7 @@ CREATE TABLE "orders" (
     "total" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "payment_intent" TEXT,
 
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );

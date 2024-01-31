@@ -11,6 +11,18 @@ import { IUpdateItemData } from 'src/domain/cart/use-cases/update-item-use-case'
 export class ItemRepositoryImpl implements ItemRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
+  async findSum(id: string): Promise<number> {
+    const aggregations = await this.prismaService.item.aggregate({
+      _sum: {
+        subtotal: true,
+      },
+      where: {
+        orderId: id,
+      },
+    });
+    return aggregations._sum.subtotal;
+  }
+
   async update(id: string, data: IUpdateItemData): Promise<Item> {
     const item = await this.prismaService.item.update({
       where: { id },

@@ -6,19 +6,16 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserType } from '@prisma/client';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CreateIntentUseCase } from 'src/domain/payment/use-cases/create-intent-use-case';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaymentService } from './stripe.service';
+import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
-@ApiBearerAuth()
+@IsPublic()
 @ApiTags('payment')
 @Controller('payment')
-export class PaymentController {
-  constructor(private useCase: CreateIntentUseCase) {}
-
-  @Roles(UserType.ADMIN, UserType.CLIENT)
-  @Post('create-intent/:id')
+export class ConfirmPaymentController {
+  constructor(private useCase: PaymentService) {}
+  @Post('confirm-intent/:id')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: 201,
@@ -32,12 +29,9 @@ export class PaymentController {
   })
   async createPaymentIntent(@Param('id') id: string) {
     try {
-      const clientSecret = await this.useCase.execute({
-        orderId: id,
-      });
+      const clientSecret = await this.useCase.confirmPaymentIntent(id);
       return { clientSecret };
     } catch (err) {
-      console.log(err);
       throw new BadRequestException();
     }
   }

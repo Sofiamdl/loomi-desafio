@@ -12,6 +12,9 @@ import { ProductModule } from './controllers/product/product.module';
 import { OrderModule } from './controllers/order/order.module';
 import { CartModule } from './controllers/cart/cart.module';
 import { PaymentController } from './controllers/payment/payment.controller';
+import { ConfirmPaymentController } from './controllers/payment/confirm-payment.controller';
+import { CreateIntentUseCase } from 'src/domain/payment/use-cases/create-intent-use-case';
+import { PaymentService } from './controllers/payment/stripe.service';
 
 @Module({
   imports: [
@@ -23,9 +26,15 @@ import { PaymentController } from './controllers/payment/payment.controller';
     OrderModule,
     CartModule,
   ],
-  controllers: [CreateUserController, PaymentController],
+  controllers: [
+    CreateUserController,
+    PaymentController,
+    ConfirmPaymentController,
+  ],
   providers: [
     RegisterUserUseCase,
+    CreateIntentUseCase,
+    PaymentService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

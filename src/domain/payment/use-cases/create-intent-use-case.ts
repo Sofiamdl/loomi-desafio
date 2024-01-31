@@ -28,11 +28,15 @@ export class CreateIntentUseCase
 
     const order = await this.orderRepository.findById(orderId);
     if (!order) throw new NotFoundException('Order Not Found');
-    await this.orderRepository.update(orderId, { status: OrderStatus.CLOSED });
 
     const paymentIntent = await this.paymentGateway.createPaymentIntent(
       order.total,
     );
+    await this.orderRepository.update(orderId, {
+      status: OrderStatus.CLOSED,
+      payment_intent: paymentIntent.client_secret,
+    });
+
     return { clientSecret: paymentIntent.client_secret };
   }
 }

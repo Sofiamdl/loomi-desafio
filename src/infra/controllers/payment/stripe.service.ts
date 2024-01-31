@@ -23,8 +23,12 @@ export class PaymentService implements PaymentGateway {
   async confirmPaymentIntent(
     paymentIntentId: string,
   ): Promise<Stripe.PaymentIntent> {
-    const confirmedIntent =
-      await this.stripe.paymentIntents.confirm(paymentIntentId);
+    const confirmedIntent = await this.stripe.paymentIntents.confirm(
+      paymentIntentId,
+      {
+        payment_method_options: { card: { cvc_token: '4242 4242 4242 4242' } },
+      },
+    );
     return confirmedIntent;
   }
 }
