@@ -4,11 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { OrderStatus } from '@prisma/client';
-import { Item } from './entities/item.entity';
-import { ProductRepository } from '../product/repositories/product-repository';
-import { OrderRepository } from '../order/repositories/order-repository';
+import { Item } from '../entities/item.entity';
+import { ProductRepository } from '../../product/repositories/product-repository';
+import { OrderRepository } from '../../order/repositories/order-repository';
 import { UseCase } from 'src/core/use-case';
-import { ItemRepository } from './repositories/item-repository';
+import { ItemRepository } from '../repositories/item-repository';
 
 export interface AddToCartUseCaseRequest {
   productId: string;

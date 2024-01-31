@@ -4,7 +4,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { UserType } from '@prisma/client';
 import { AddToCartDto } from 'src/infra/dtos/cart/add-to-cart-dto';
-import { AddToCartUseCase } from 'src/domain/cart/add-to-cart-use-case';
+import { AddToCartUseCase } from 'src/domain/cart/use-cases/add-to-cart-use-case';
 
 @Controller('/add-item/:id')
 @ApiTags('cart')
