@@ -36,6 +36,7 @@ export class CreateClientController {
 
       return { data: result.user };
     } catch (err) {
+      console.log(err);
       throw new BadRequestException();
     }
   }

@@ -14,6 +14,7 @@ export class Account {
   updated_at: Date;
   user?: User;
   userId: string;
+  confirmation_code: string;
 
   constructor(props: Omit<Account, 'id'>, id?: string) {
     Object.assign(this, props);
@@ -30,6 +31,7 @@ export class AccountWithoutUser {
   created_at: Date;
   updated_at: Date;
   userId: string;
+  confirmation_code?: string;
 
   constructor(props: Omit<Account, 'id'>, id?: string) {
     Object.assign(this, props);
