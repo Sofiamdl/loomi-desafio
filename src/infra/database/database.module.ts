@@ -12,6 +12,8 @@ import { OrderRepository } from 'src/domain/order/repositories/order-repository'
 import { OrderRepositoryImpl } from './prisma/repositories/prisma-order-repository';
 import { ItemRepository } from 'src/domain/cart/repositories/item-repository';
 import { ItemRepositoryImpl } from './prisma/repositories/prisma-item-repository';
+import { PaymentGateway } from 'src/domain/payment/gateway/payment-gateway';
+import { PaymentService } from '../controllers/payment/stripe.service';
 
 @Module({
   providers: [
@@ -40,6 +42,10 @@ import { ItemRepositoryImpl } from './prisma/repositories/prisma-item-repository
       provide: ItemRepository,
       useClass: ItemRepositoryImpl,
     },
+    {
+      provide: PaymentGateway,
+      useClass: PaymentService,
+    },
   ],
   exports: [
     {
@@ -65,6 +71,10 @@ import { ItemRepositoryImpl } from './prisma/repositories/prisma-item-repository
     {
       provide: ItemRepository,
       useClass: ItemRepositoryImpl,
+    },
+    {
+      provide: PaymentGateway,
+      useClass: PaymentService,
     },
   ],
 })

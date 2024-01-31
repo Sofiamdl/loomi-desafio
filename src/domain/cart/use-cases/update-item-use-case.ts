@@ -9,6 +9,7 @@ import { Item } from '../entities/item.entity';
 import { ItemRepository } from '../repositories/item-repository';
 import { AdminRepository } from 'src/domain/admin/repositories/admin-repository';
 import { UserType } from '@prisma/client';
+import { OrderRepository } from 'src/domain/order/repositories/order-repository';
 
 export interface IUpdateItemData {
   quantity: number;
@@ -33,6 +34,7 @@ export class UpdateItemUseCase
   constructor(
     private itemRepository: ItemRepository,
     private adminRepository: AdminRepository,
+    private orderRepository: OrderRepository,
   ) {}
 
   async execute(request: UpdateUseCaseRequest): Promise<UpdateUseCaseResponse> {
@@ -61,7 +63,8 @@ export class UpdateItemUseCase
     };
 
     const item = await this.itemRepository.update(id, data);
-
+    const total = await this.itemRepository.findSum(itemFound.orderId);
+    await this.orderRepository.update(itemFound.orderId, { total });
     return { item };
   }
 }

@@ -36,13 +36,15 @@ export class AddToCartUseCase
     const { productId, orderId, quantity } = request;
 
     const product = await this.productRepository.findById(productId);
+
     if (!product) throw new NotFoundException('Product Not Found');
     if (product.quantity == 0)
       throw new BadRequestException('Product Not Available');
 
-    const order = await this.orderRepository.findById(productId);
+    const order = await this.orderRepository.findById(orderId);
+
     if (!order) throw new NotFoundException('Order Not Found');
-    if (order.status != OrderStatus.PREPARING)
+    if (order.status != OrderStatus.OPENED)
       throw new BadRequestException('You Cant Update That Order');
 
     const item = new Item({
@@ -54,7 +56,8 @@ export class AddToCartUseCase
     });
 
     const itemCreated = await this.itemRepository.create(item);
-
+    const total = await this.itemRepository.findSum(orderId);
+    await this.orderRepository.update(orderId, { total });
     return { item: itemCreated };
   }
 }

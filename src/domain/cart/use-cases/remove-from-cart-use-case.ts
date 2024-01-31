@@ -7,6 +7,7 @@ import { UseCase } from '../../../core/use-case';
 import { AdminRepository } from 'src/domain/admin/repositories/admin-repository';
 import { UserType } from '@prisma/client';
 import { ItemRepository } from '../repositories/item-repository';
+import { OrderRepository } from 'src/domain/order/repositories/order-repository';
 
 export interface RemoveFromCartUseCaseRequest {
   id: string;
@@ -23,6 +24,7 @@ export class RemoveFromCartUseCase
   constructor(
     private adminRepository: AdminRepository,
     private itemRepository: ItemRepository,
+    private orderRepository: OrderRepository,
   ) {}
 
   async execute(
@@ -43,7 +45,8 @@ export class RemoveFromCartUseCase
     }
 
     await this.itemRepository.delete(id);
-
+    const total = await this.itemRepository.findSum(itemFound.orderId);
+    await this.orderRepository.update(itemFound.orderId, { total });
     return;
   }
 }
