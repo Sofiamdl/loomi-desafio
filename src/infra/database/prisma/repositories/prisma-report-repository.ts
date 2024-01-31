@@ -7,6 +7,12 @@ import { ReportEntity } from 'src/domain/report/entities/report.entity';
 @Injectable()
 export class ReportRepositoryImpl implements ReportRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findById(id: string): Promise<ReportEntity> {
+    const report = await this.prismaService.report.findUnique({
+      where: { id },
+    });
+    return report;
+  }
 
   async generate(startDate: Date, endDate: Date): Promise<any> {
     const reportQueried = this.prismaService.$queryRaw`

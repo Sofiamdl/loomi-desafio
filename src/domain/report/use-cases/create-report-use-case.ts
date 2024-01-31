@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ReportEntity } from './entities/report.entity';
+import { ReportEntity } from '../entities/report.entity';
 import { UseCase } from 'src/core/use-case';
-import { ReportRepository } from './repositories/report-repository';
+import { ReportRepository } from '../repositories/report-repository';
 import { createObjectCsvWriter } from 'csv-writer';
 
 export interface CreateReportUseCaseRequest {
