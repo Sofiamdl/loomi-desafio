@@ -25,6 +25,10 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   login(@Request() req: AuthRequest, @Body() _body: LoginDto) {
-    return this.authService.login(req.user);
+    try {
+      return this.authService.login(req.user);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

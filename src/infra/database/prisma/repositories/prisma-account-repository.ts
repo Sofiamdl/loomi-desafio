@@ -9,6 +9,15 @@ import {
 @Injectable()
 export class AccountRepositoryImpl implements AccountRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findByUserId(id: string): Promise<Account> {
+    const user = await this.prismaService.account.findUnique({
+      where: { userId: id },
+      include: {
+        user: true,
+      },
+    });
+    return user;
+  }
 
   async update(
     id: string,

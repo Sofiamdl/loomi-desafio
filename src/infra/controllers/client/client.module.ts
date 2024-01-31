@@ -21,6 +21,8 @@ import { UpdateClientController } from './update-client.controller';
 import { FindClientUseCase } from 'src/domain/client/use-cases/find-client-use-case';
 import { FindAllClientUseCase } from 'src/domain/client/use-cases/find-all-client-use-case';
 import { UpdateClientUseCase } from 'src/domain/client/use-cases/update-client-use-case';
+import { ConfirmCodeController } from './confirm-code.controller';
+import { ConfirmCodeUseCase } from 'src/domain/client/use-cases/confirm-code-use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -30,8 +32,10 @@ import { UpdateClientUseCase } from 'src/domain/client/use-cases/update-client-u
     FindAllClientController,
     FindClientController,
     UpdateClientController,
+    ConfirmCodeController,
   ],
   providers: [
+    ConfirmCodeUseCase,
     DeleteClientUseCase,
     FindClientUseCase,
     FindAllClientUseCase,
