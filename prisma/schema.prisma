@@ -18,10 +18,10 @@ enum UserType {
 enum OrderStatus {
   OPENED
   CLOSED
-  INVALID
   PREPARING
   DISPACHED
   DELIVERED
+  INVALID
 }
 
 model User {
@@ -91,4 +91,17 @@ model Item {
   unityPrice  Int
   subtotal    Float
   @@map("itens")
+}
+
+
+model Report {
+  id            String   @id @default(uuid())
+  startDate     DateTime 
+  endDate       DateTime 
+  totalSales    Float
+  totalAmount   Int
+  csvUrl        String
+
+  @@map("reports")
+
 }
