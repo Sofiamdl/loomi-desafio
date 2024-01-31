@@ -32,10 +32,10 @@ export class PaymentController {
   })
   async createPaymentIntent(@Param('id') id: string) {
     try {
-      const clientSecret = await this.useCase.execute({
+      const payment_intent = await this.useCase.execute({
         orderId: id,
       });
-      return { clientSecret };
+      return { payment_intent };
     } catch (err) {
       console.log(err);
       throw new BadRequestException();

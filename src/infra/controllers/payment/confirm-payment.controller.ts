@@ -9,7 +9,7 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaymentService } from './stripe.service';
 import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
-
+// ajeitar arquitetura se der tempo
 @IsPublic()
 @ApiTags('payment')
 @Controller('payment')
@@ -32,6 +32,7 @@ export class ConfirmPaymentController {
       const clientSecret = await this.useCase.confirmPaymentIntent(id);
       return { clientSecret };
     } catch (err) {
+      console.log(err);
       throw new BadRequestException();
     }
   }

@@ -10,6 +10,16 @@ import { IUpdateItemData } from 'src/domain/cart/use-cases/update-item-use-case'
 @Injectable()
 export class ItemRepositoryImpl implements ItemRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findAll(orderId: string): Promise<[ItemWithOrderProduct]> {
+    const items = await this.prismaService.item.findMany({
+      where: { orderId },
+      include: {
+        order: true,
+        product: true,
+      },
+    });
+    return items as [ItemWithOrderProduct];
+  }
 
   async findSum(id: string): Promise<number> {
     const aggregations = await this.prismaService.item.aggregate({

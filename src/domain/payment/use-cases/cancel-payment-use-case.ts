@@ -6,17 +6,17 @@ import { OrderStatus } from '@prisma/client';
 import { ItemRepository } from 'src/domain/cart/repositories/item-repository';
 import { ProductRepository } from 'src/domain/product/repositories/product-repository';
 
-export interface CreateIntentUseCaseRequest {
+export interface CancelPaymentUseCaseRequest {
   orderId: string;
 }
 
-export interface CreateIntentUseCaseResponse {
+export interface CancelPaymentUseCaseResponse {
   paymentIntent: string;
 }
 
 @Injectable()
-export class CreateIntentUseCase
-  implements UseCase<CreateIntentUseCaseRequest, CreateIntentUseCaseResponse>
+export class CancelPaymentUseCase
+  implements UseCase<CancelPaymentUseCaseRequest, CancelPaymentUseCaseResponse>
 {
   constructor(
     private orderRepository: OrderRepository,
@@ -26,8 +26,8 @@ export class CreateIntentUseCase
   ) {}
 
   async execute(
-    request: CreateIntentUseCaseRequest,
-  ): Promise<CreateIntentUseCaseResponse> {
+    request: CancelPaymentUseCaseRequest,
+  ): Promise<CancelPaymentUseCaseResponse> {
     const { orderId } = request;
 
     const order = await this.orderRepository.findById(orderId);

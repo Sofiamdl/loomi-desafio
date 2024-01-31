@@ -26,7 +26,7 @@ export class PaymentService implements PaymentGateway {
     const confirmedIntent = await this.stripe.paymentIntents.confirm(
       paymentIntentId,
       {
-        payment_method_options: { card: { cvc_token: '4242 4242 4242 4242' } },
+        payment_method: 'pm_card_visa',
       },
     );
     return confirmedIntent;
