@@ -11,6 +11,7 @@ import { ClientModule } from './controllers/client/client.module';
 import { ProductModule } from './controllers/product/product.module';
 import { OrderModule } from './controllers/order/order.module';
 import { CartModule } from './controllers/cart/cart.module';
+import { PaymentController } from './controllers/payment/payment.controller';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { CartModule } from './controllers/cart/cart.module';
     OrderModule,
     CartModule,
   ],
-  controllers: [CreateUserController],
+  controllers: [CreateUserController, PaymentController],
   providers: [
     RegisterUserUseCase,
     {

@@ -16,7 +16,9 @@ enum UserType {
 }
 
 enum OrderStatus {
-  RECEIVED
+  OPENED
+  CLOSED
+  INVALID
   PREPARING
   DISPACHED
   DELIVERED
