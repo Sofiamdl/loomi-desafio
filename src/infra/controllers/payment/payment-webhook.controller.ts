@@ -1,10 +1,12 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { CancelPaymentUseCase } from 'src/domain/payment/use-cases/cancel-payment-use-case';
+import { ApiTags } from '@nestjs/swagger';
+// import { CancelPaymentUseCase } from 'src/domain/payment/use-cases/cancel-payment-use-case';
 
 // se der tempo mudar estrutura de código
+@ApiTags('payment')
 @Controller('webhook')
 export class WebhookController {
-  constructor(private readonly useCase: CancelPaymentUseCase) {}
+  // constructor(private readonly useCase: CancelPaymentUseCase) {}
 
   @Post('stripe')
   async handleStripeWebhook(@Body() body: any) {

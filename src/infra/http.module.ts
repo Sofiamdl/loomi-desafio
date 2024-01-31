@@ -15,6 +15,7 @@ import { PaymentController } from './controllers/payment/payment.controller';
 import { ConfirmPaymentController } from './controllers/payment/confirm-payment.controller';
 import { CreateIntentUseCase } from 'src/domain/payment/use-cases/create-intent-use-case';
 import { PaymentService } from './controllers/payment/stripe.service';
+import { WebhookController } from './controllers/payment/payment-webhook.controller';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PaymentService } from './controllers/payment/stripe.service';
     CreateUserController,
     PaymentController,
     ConfirmPaymentController,
+    WebhookController,
   ],
   providers: [
     RegisterUserUseCase,
