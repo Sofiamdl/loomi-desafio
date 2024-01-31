@@ -6,7 +6,7 @@ import { UserType } from '@prisma/client';
 import { AddToCartDto } from 'src/infra/dtos/cart/add-to-cart-dto';
 import { AddToCartUseCase } from 'src/domain/cart/use-cases/add-to-cart-use-case';
 
-@Controller('/add-item/:id')
+@Controller('/item/:id')
 @ApiTags('cart')
 export class AddItemController {
   constructor(private useCase: AddToCartUseCase) {}

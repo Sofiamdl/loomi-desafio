@@ -1,3 +1,4 @@
+import { Product } from '.prisma/client';
 import { randomUUID } from 'node:crypto';
 import { Order } from 'src/domain/order/entities/order.entity';
 
@@ -15,10 +16,11 @@ export class Item {
   }
 }
 
-export class ItemWithOrder {
+export class ItemWithOrderProduct {
   public readonly id: string;
   orderId: string;
   order: Order;
+  product: Product;
   productId: string;
   quantity: number;
   unityPrice: number;

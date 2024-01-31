@@ -15,7 +15,7 @@ import { RemoveFromCartUseCase } from 'src/domain/cart/use-cases/remove-from-car
 
 @ApiBearerAuth()
 @ApiTags('cart')
-@Controller('/remove-item/:id')
+@Controller('/item/:id')
 export class RemoveItemController {
   constructor(private useCase: RemoveFromCartUseCase) {}
   @Roles(UserType.ADMIN, UserType.CLIENT)
