@@ -4,27 +4,24 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { DeleteClientUseCase } from 'src/domain/client/use-cases/delete-client-use-case';
-import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
+import { DeleteProductUseCase } from 'src/domain/product/use-cases/delete-product-use-case';
 
 @ApiBearerAuth()
-@ApiTags('client')
-@Controller('/client/:id')
-export class DeleteClientController {
-  constructor(private useCase: DeleteClientUseCase) {}
-
-  @Roles(UserType.CLIENT, UserType.ADMIN)
+@ApiTags('product')
+@Controller('/product/:id')
+export class DeleteProductController {
+  constructor(private useCase: DeleteProductUseCase) {}
+  @Roles(UserType.ADMIN)
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: 204,
-    description: 'Client Deleted.',
+    description: 'Product Deleted.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
@@ -32,13 +29,10 @@ export class DeleteClientController {
     status: 500,
     description: 'Internal server error.',
   })
-  @ApiParam({ name: 'id', type: 'string', description: 'Client Id' })
-  async handle(@Param('id') id: string, @Request() req: AuthRequest) {
+  @ApiParam({ name: 'id', type: 'string', description: 'Product Id' })
+  async handle(@Param('id') id: string) {
     try {
-      const result = await this.useCase.execute({
-        id,
-        idOfCurrentUser: req.user.id,
-      });
+      const result = await this.useCase.execute({ id });
 
       return { data: result };
     } catch (err) {

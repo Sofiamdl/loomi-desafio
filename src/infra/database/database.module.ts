@@ -6,6 +6,12 @@ import { AdminRepository } from 'src/domain/admin/repositories/admin-repository'
 import { AdminRepositoryImpl } from './prisma/repositories/prisma-admin-repository';
 import { AccountRepository } from 'src/domain/client/repositories/account-repository';
 import { AccountRepositoryImpl } from './prisma/repositories/prisma-account-repository';
+import { ProductRepository } from 'src/domain/product/repositories/product-repository';
+import { ProductRepositoryImpl } from './prisma/repositories/prisma-product-repository';
+import { OrderRepository } from 'src/domain/order/repositories/order-repository';
+import { OrderRepositoryImpl } from './prisma/repositories/prisma-order-repository';
+import { ItemRepository } from 'src/domain/cart/repositories/item-repository';
+import { ItemRepositoryImpl } from './prisma/repositories/prisma-item-repository';
 
 @Module({
   providers: [
@@ -22,6 +28,18 @@ import { AccountRepositoryImpl } from './prisma/repositories/prisma-account-repo
       provide: AccountRepository,
       useClass: AccountRepositoryImpl,
     },
+    {
+      provide: ProductRepository,
+      useClass: ProductRepositoryImpl,
+    },
+    {
+      provide: OrderRepository,
+      useClass: OrderRepositoryImpl,
+    },
+    {
+      provide: ItemRepository,
+      useClass: ItemRepositoryImpl,
+    },
   ],
   exports: [
     {
@@ -35,6 +53,18 @@ import { AccountRepositoryImpl } from './prisma/repositories/prisma-account-repo
     {
       provide: AccountRepository,
       useClass: AccountRepositoryImpl,
+    },
+    {
+      provide: ProductRepository,
+      useClass: ProductRepositoryImpl,
+    },
+    {
+      provide: OrderRepository,
+      useClass: OrderRepositoryImpl,
+    },
+    {
+      provide: ItemRepository,
+      useClass: ItemRepositoryImpl,
     },
   ],
 })

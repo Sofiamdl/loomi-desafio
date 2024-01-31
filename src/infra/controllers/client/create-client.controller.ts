@@ -3,7 +3,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 import { CreateClientDto } from 'src/infra/dtos/client/create-client-dto';
-import { RegisterClientUseCase } from 'src/domain/user/use-cases/create-client-use-case';
+import { RegisterClientUseCase } from 'src/domain/client/use-cases/create-client-use-case';
 
 @IsPublic()
 @Controller('/client')

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { User } from './user.entity';
+import { User } from '../../user/entities/user.entity';
 // import { User } from './user.entity';
 
 export type Replace<T, R> = Omit<T, keyof R> & R;

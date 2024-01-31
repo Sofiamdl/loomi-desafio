@@ -3,19 +3,19 @@ import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { FindClientUseCase } from 'src/domain/client/use-cases/find-client-use-case';
+import { FindProductUseCase } from 'src/domain/product/use-cases/find-product-use-case';
 
 @ApiBearerAuth()
-@Controller('/client/:id')
-@ApiTags('client')
-export class FindClientController {
-  constructor(private useCase: FindClientUseCase) {}
-  @Roles(UserType.CLIENT, UserType.ADMIN)
+@Controller('/product/:id')
+@ApiTags('product')
+export class FindProductController {
+  constructor(private useCase: FindProductUseCase) {}
+  @Roles(UserType.ADMIN, UserType.CLIENT)
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: 200,
-    description: 'Client Found.',
+    description: 'Product Found.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
@@ -23,7 +23,7 @@ export class FindClientController {
     status: 500,
     description: 'Internal server error.',
   })
-  @ApiParam({ name: 'id', type: 'string', description: 'Client Id' })
+  @ApiParam({ name: 'id', type: 'string', description: 'Product Id' })
   async handle(@Param('id') id: string) {
     try {
       const result = await this.useCase.execute({ id });

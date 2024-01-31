@@ -1,31 +1,28 @@
 import {
   Controller,
-  Patch,
-  Body,
+  Post,
+  Request,
   HttpStatus,
   HttpCode,
-  Param,
-  Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { UpdateClientDto } from 'src/infra/dtos/client/update-client-dto';
-import { UpdateClientUseCase } from 'src/domain/client/use-cases/update-client-use-case';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
+import { CreateOrderUseCase } from 'src/domain/order/use-cases/create-order-use-case';
 
 @ApiBearerAuth()
-@ApiTags('client')
-@Controller('/client/:id')
-export class UpdateClientController {
-  constructor(private useCase: UpdateClientUseCase) {}
-  @Roles(UserType.CLIENT, UserType.ADMIN)
-  @Patch()
-  @HttpCode(HttpStatus.OK)
+@Controller('/order')
+@ApiTags('order')
+export class CreateOrderController {
+  constructor(private useCase: CreateOrderUseCase) {}
+  @Roles(UserType.ADMIN, UserType.CLIENT)
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: 201,
-    description: 'User Client Updated.',
+    description: 'Order Created.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
@@ -33,22 +30,13 @@ export class UpdateClientController {
     status: 500,
     description: 'Internal server error.',
   })
-  async handle(
-    @Body() body: UpdateClientDto,
-    @Param('id') id: string,
-    @Request() req: AuthRequest,
-  ) {
-    const { fullName, contact, address } = body;
+  async handle(@Request() req: AuthRequest) {
     try {
       const result = await this.useCase.execute({
-        id,
-        fullName,
-        contact,
-        address,
-        idOfCurrentUser: req.user.id,
+        id: req.user.id,
       });
 
-      return { data: result.client };
+      return { data: result.order };
     } catch (err) {
       throw new BadRequestException();
     }

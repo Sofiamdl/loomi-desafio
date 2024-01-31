@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UseCase } from '../../../core/use-case';
-import { User } from '../entities/user.entity';
-import { UserRepository } from '../repositories/user-repository';
+import { User } from '../../user/entities/user.entity';
+import { UserRepository } from '../../user/repositories/user-repository';
 import { UserType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 

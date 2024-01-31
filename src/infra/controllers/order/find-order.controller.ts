@@ -1,6 +1,6 @@
 import {
   Controller,
-  Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -10,21 +10,20 @@ import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { DeleteClientUseCase } from 'src/domain/client/use-cases/delete-client-use-case';
+import { FindOrderUseCase } from 'src/domain/order/use-cases/find-order-use-case';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
 
 @ApiBearerAuth()
-@ApiTags('client')
-@Controller('/client/:id')
-export class DeleteClientController {
-  constructor(private useCase: DeleteClientUseCase) {}
-
-  @Roles(UserType.CLIENT, UserType.ADMIN)
-  @Delete()
-  @HttpCode(HttpStatus.NO_CONTENT)
+@Controller('/order/:id')
+@ApiTags('order')
+export class FindOrderController {
+  constructor(private useCase: FindOrderUseCase) {}
+  @Roles(UserType.ADMIN, UserType.CLIENT)
+  @Get()
+  @HttpCode(HttpStatus.OK)
   @ApiResponse({
-    status: 204,
-    description: 'Client Deleted.',
+    status: 200,
+    description: 'Order Found.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
@@ -32,7 +31,7 @@ export class DeleteClientController {
     status: 500,
     description: 'Internal server error.',
   })
-  @ApiParam({ name: 'id', type: 'string', description: 'Client Id' })
+  @ApiParam({ name: 'id', type: 'string', description: 'Order Id' })
   async handle(@Param('id') id: string, @Request() req: AuthRequest) {
     try {
       const result = await this.useCase.execute({

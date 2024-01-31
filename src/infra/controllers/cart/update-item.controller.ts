@@ -11,21 +11,21 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
 import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
-import { UpdateClientDto } from 'src/infra/dtos/client/update-client-dto';
-import { UpdateClientUseCase } from 'src/domain/client/use-cases/update-client-use-case';
+import { UpdateItemDto } from 'src/infra/dtos/cart/update-item';
+import { UpdateItemUseCase } from 'src/domain/cart/use-cases/update-item-use-case';
 import { AuthRequest } from 'src/infra/auth/models/AuthRequest';
 
 @ApiBearerAuth()
-@ApiTags('client')
-@Controller('/client/:id')
-export class UpdateClientController {
-  constructor(private useCase: UpdateClientUseCase) {}
-  @Roles(UserType.CLIENT, UserType.ADMIN)
+@ApiTags('cart')
+@Controller('/item/:id')
+export class UpdateItemController {
+  constructor(private registerUserUseCase: UpdateItemUseCase) {}
+  @Roles(UserType.ADMIN, UserType.CLIENT)
   @Patch()
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: 201,
-    description: 'User Client Updated.',
+    description: 'Item Updated.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
@@ -34,21 +34,20 @@ export class UpdateClientController {
     description: 'Internal server error.',
   })
   async handle(
-    @Body() body: UpdateClientDto,
+    @Body() body: UpdateItemDto,
     @Param('id') id: string,
     @Request() req: AuthRequest,
   ) {
-    const { fullName, contact, address } = body;
+    const { quantity } = body;
+
     try {
-      const result = await this.useCase.execute({
+      const result = await this.registerUserUseCase.execute({
         id,
-        fullName,
-        contact,
-        address,
+        quantity,
         idOfCurrentUser: req.user.id,
       });
 
-      return { data: result.client };
+      return { data: result.item };
     } catch (err) {
       throw new BadRequestException();
     }
