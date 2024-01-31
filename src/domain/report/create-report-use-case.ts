@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ReportEntity } from './entities/report.entity';
 import { UseCase } from 'src/core/use-case';
 import { ReportRepository } from './repositories/report-repository';
@@ -23,19 +23,20 @@ export class CreateReportUseCase
     request: CreateReportUseCaseRequest,
   ): Promise<CreateReportUseCaseResponse> {
     const { startDate, endDate } = request;
+    const generatedRepo = await this.repository.generate(startDate, endDate);
+
+    if (generatedRepo.length <= 0) throw new NotFoundException('No Data Found');
 
     const report = new ReportEntity({
       startDate: new Date(startDate),
       endDate: new Date(endDate),
-      totalAmount: 0,
-      totalSales: 0,
+      totalAmount: Number(generatedRepo[0].total_quantity_sold),
+      totalSales: Number(generatedRepo[0].total_total_sold),
       csvUrl: '111',
     });
 
     const newReport = await this.repository.create(report);
 
-    const generatedRepo = await this.repository.generate(startDate, endDate);
-    console.log(generatedRepo);
     const csvWriter = createObjectCsvWriter({
       path: `reports/${newReport.id}.csv`,
       header: [

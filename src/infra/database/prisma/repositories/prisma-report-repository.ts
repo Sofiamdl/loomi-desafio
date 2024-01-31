@@ -15,11 +15,13 @@ export class ReportRepositoryImpl implements ReportRepository {
       products.name AS name, 
       products.price AS price,
       SUM(itens.quantity) AS quantity_sold,
-      SUM(itens.subtotal) AS total_sold
+      SUM(itens.subtotal) AS total_sold,
+      (SELECT SUM(quantity) FROM itens) AS total_quantity_sold,
+      (SELECT SUM(subtotal) FROM itens) AS total_total_sold
       FROM orders 
       INNER JOIN itens ON orders.id = itens."orderId" 
       INNER JOIN products ON itens."productId" = products.id 
-      WHERE orders.created_at >= DATE(${startDate})  AND orders.created_at <= DATE(${endDate})
+      WHERE orders.created_at >= DATE(${startDate}) AND orders.created_at <= DATE(${endDate})
       GROUP BY 1, 2
       ORDER BY 2 ASC
     `;
