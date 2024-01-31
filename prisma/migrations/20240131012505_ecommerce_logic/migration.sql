@@ -31,6 +31,9 @@ CREATE TABLE "itens" (
     "id" TEXT NOT NULL,
     "orderId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "unityPrice" INTEGER NOT NULL,
+    "subtotal" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "itens_pkey" PRIMARY KEY ("id")
 );

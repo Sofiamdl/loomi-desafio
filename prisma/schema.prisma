@@ -76,10 +76,13 @@ model Product {
 }
 
 model Item {
-  id         String   @id @default(uuid())
-  order     Order @relation(fields: [orderId], references: [id])
-  orderId   String  
+  id          String   @id @default(uuid())
+  order       Order @relation(fields: [orderId], references: [id])
+  orderId     String  
   product     Product @relation(fields: [productId], references: [id])
   productId   String  
+  quantity    Int
+  unityPrice  Int
+  subtotal    Float
   @@map("itens")
 }

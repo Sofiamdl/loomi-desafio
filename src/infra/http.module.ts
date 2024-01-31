@@ -9,6 +9,8 @@ import { RolesGuard } from './auth/guards/roles.guard';
 import { AdminModule } from './controllers/admin/admin.module';
 import { ClientModule } from './controllers/client/client.module';
 import { ProductModule } from './controllers/product/product.module';
+import { OrderModule } from './controllers/order/order.module';
+import { CartModule } from './controllers/cart/cart.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ProductModule } from './controllers/product/product.module';
     AdminModule,
     ClientModule,
     ProductModule,
+    OrderModule,
+    CartModule,
   ],
   controllers: [CreateUserController],
   providers: [
