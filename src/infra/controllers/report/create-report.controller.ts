@@ -1,17 +1,18 @@
 import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '@nestjs/common';
-import { UserType } from '@prisma/client';
-import { Roles } from 'src/infra/auth/decorators/roles.decorator';
+// import { UserType } from '@prisma/client';
+// import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { CreateReportUseCase } from 'src/domain/report/create-report-use-case';
 import { CreateReportDto } from 'src/infra/dtos/report/create-report-dto';
+import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
-@ApiBearerAuth()
+@IsPublic()
 @Controller('/report')
 @ApiTags('report')
 export class CreateReportController {
   constructor(private useCase: CreateReportUseCase) {}
-  @Roles(UserType.ADMIN)
+  // @Roles(UserType.ADMIN)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
@@ -34,7 +35,7 @@ export class CreateReportController {
 
       return { data: result.report };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

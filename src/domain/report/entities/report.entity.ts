@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 export type Replace<T, R> = Omit<T, keyof R> & R;
 
-export class Report {
+export class ReportEntity {
   public readonly id: string;
   startDate: Date;
   endDate: Date;
@@ -10,7 +10,7 @@ export class Report {
   totalAmount: number;
   csvUrl: string;
 
-  constructor(props: Omit<Report, 'id'>, id?: string) {
+  constructor(props: Omit<ReportEntity, 'id'>, id?: string) {
     Object.assign(this, props);
     this.id = id ?? randomUUID();
   }
