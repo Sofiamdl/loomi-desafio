@@ -3,7 +3,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { WebhookUseCase } from 'src/domain/payment/use-cases/webhook-use-case';
 import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
-// se der tempo mudar estrutura de código
 @IsPublic()
 @ApiTags('payment')
 @Controller('webhook')

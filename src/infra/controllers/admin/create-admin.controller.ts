@@ -1,19 +1,19 @@
 import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from 'src/domain/client/use-cases/register-user-use-case';
 import { BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from 'src/infra/dtos/users/create-user.dto';
 import { UserType } from '@prisma/client';
-// import { Roles } from 'src/infra/auth/decorators/roles.decorator';
+import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
-// @ApiBearerAuth()
+@ApiBearerAuth()
 @IsPublic()
 @Controller('/admin')
 @ApiTags('admin')
 export class CreateAdminController {
   constructor(private registerUserUseCase: RegisterUserUseCase) {}
-  // @Roles(UserType.ADMIN)
+  @Roles(UserType.ADMIN)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
