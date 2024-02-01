@@ -54,7 +54,10 @@ export class OrderRepositoryImpl implements OrderRepository {
   }
 
   async findById(id: string): Promise<Order> {
-    const order = await this.prismaService.order.findUnique({ where: { id } });
+    const order = await this.prismaService.order.findUnique({
+      where: { id },
+      include: { itens: true },
+    });
     return order;
   }
   async delete(id: string): Promise<void> {

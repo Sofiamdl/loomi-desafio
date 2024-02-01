@@ -38,7 +38,7 @@ export class ProductRepositoryImpl implements ProductRepository {
         ],
       },
       take: Number(query.pageAmount),
-      skip: (query.page - 1) * query.pageAmount,
+      skip: (Number(query.page) - 1) * Number(query.pageAmount),
     })) as [Product];
     return products;
   }

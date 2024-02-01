@@ -38,6 +38,7 @@ export class DeleteClientUseCase
         throw new BadRequestException();
       }
     }
+
     await this.accountRepository.delete(id);
     await this.adminRepository.delete(idOfCurrentUser);
 
