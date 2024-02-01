@@ -44,9 +44,11 @@ export class RemoveFromCartUseCase
       }
     }
 
-    await this.itemRepository.delete(id);
     const total = await this.itemRepository.findSum(itemFound.orderId);
     await this.orderRepository.update(itemFound.orderId, { total });
+
+    await this.itemRepository.delete(id);
+
     return;
   }
 }

@@ -12,10 +12,9 @@ import { UserType } from '@prisma/client';
 import { Roles } from 'src/infra/auth/decorators/roles.decorator';
 import { FindReportUseCase } from 'src/domain/report/use-cases/find-report-use-case';
 import { Response } from 'express';
-import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
+// import { IsPublic } from 'src/infra/auth/decorators/is-public.decorator';
 
 @ApiBearerAuth()
-@IsPublic()
 @Controller('/report/:id')
 @ApiTags('report')
 export class FindReportController {

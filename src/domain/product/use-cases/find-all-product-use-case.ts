@@ -33,9 +33,12 @@ export class FindAllProductUseCase
     query: FindAllProductUseCaseRequest,
   ): Promise<FindAllProductUseCaseResponse> {
     if (query.isAvailable != undefined) {
-      if (query.isAvailable == true) query.isAvailable = { not: 0 };
+      if (Boolean(query.isAvailable) == true) query.isAvailable = { not: 0 };
       else query.isAvailable = 0;
     }
+
+    if (query.maxPrice != undefined) query.maxPrice = Number(query.maxPrice);
+    if (query.minPrice != undefined) query.minPrice = Number(query.minPrice);
 
     const products = await this.productRepository.findAll(
       query as IFindAllProductRepository,
