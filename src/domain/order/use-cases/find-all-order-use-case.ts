@@ -54,6 +54,18 @@ export class FindAllOrderUseCase
         }
       }
     }
+
+    if (data.query.fromDate != undefined)
+      data.query.fromDate = new Date(data.query.fromDate);
+
+    if (data.query.toDate != undefined)
+      data.query.toDate = new Date(data.query.toDate);
+
+    if (data.query.maxPrice != undefined)
+      data.query.maxPrice = Number(data.query.maxPrice);
+    if (data.query.minPrice != undefined)
+      data.query.minPrice = Number(data.query.minPrice);
+
     const orders = await this.orderRepository.findAll(data.query);
     return { orders };
   }

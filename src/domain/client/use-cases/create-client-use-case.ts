@@ -69,6 +69,8 @@ export class RegisterClientUseCase
       html: '',
     });
 
+    accountCreated.confirmation_code = undefined;
+
     return { user: accountCreated };
   }
 }
