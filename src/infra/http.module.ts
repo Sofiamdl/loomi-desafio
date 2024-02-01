@@ -17,6 +17,7 @@ import { CreateIntentUseCase } from 'src/domain/payment/use-cases/create-intent-
 import { PaymentService } from './controllers/payment/stripe.service';
 import { WebhookController } from './controllers/payment/payment-webhook.controller';
 import { ReportModule } from './controllers/report/report.module';
+import { WebhookUseCase } from 'src/domain/payment/use-cases/webhook-use-case';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ReportModule } from './controllers/report/report.module';
   providers: [
     RegisterUserUseCase,
     CreateIntentUseCase,
+    WebhookUseCase,
     PaymentService,
     {
       provide: APP_GUARD,

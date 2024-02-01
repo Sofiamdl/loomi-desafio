@@ -8,6 +8,12 @@ import { OrderStatus } from '@prisma/client';
 @Injectable()
 export class OrderRepositoryImpl implements OrderRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findByPaymentIndent(id: string): Promise<Order> {
+    const order = await this.prismaService.order.findFirst({
+      where: { payment_intent: id },
+    });
+    return order;
+  }
 
   async update(id: string, data: { status?: OrderStatus }): Promise<Order> {
     const order = await this.prismaService.order.update({
