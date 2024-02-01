@@ -13,7 +13,7 @@ import { OrderRepository } from 'src/domain/order/repositories/order-repository'
 
 export interface IUpdateItemData {
   quantity: number;
-  unityPrice?: number;
+  unityPrice: number;
   subtotal: number;
 }
 

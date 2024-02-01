@@ -32,7 +32,7 @@ export class CreateReportUseCase
       endDate: new Date(endDate),
       totalAmount: Number(generatedRepo[0].total_quantity_sold),
       totalSales: Number(generatedRepo[0].total_total_sold),
-      csvUrl: '111',
+      csvUrl: '',
     });
 
     const newReport = await this.repository.create(report);

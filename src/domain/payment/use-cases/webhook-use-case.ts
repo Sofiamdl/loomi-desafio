@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OrderRepository } from '../../order/repositories/order-repository';
-import { PaymentGateway } from 'src/domain/payment/gateway/payment-gateway';
 import { UseCase } from 'src/core/use-case';
-// import { OrderStatus } from '@prisma/client';
 import { ItemRepository } from 'src/domain/cart/repositories/item-repository';
 import { ProductRepository } from 'src/domain/product/repositories/product-repository';
 import { OrderStatus } from '@prisma/client';
@@ -22,7 +20,6 @@ export class WebhookUseCase
   constructor(
     private orderRepository: OrderRepository,
     private itemRepository: ItemRepository,
-    private paymentGateway: PaymentGateway,
     private productRepository: ProductRepository,
   ) {}
 

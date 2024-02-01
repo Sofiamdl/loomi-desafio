@@ -13,5 +13,6 @@ export class ReportEntity {
   constructor(props: Omit<ReportEntity, 'id'>, id?: string) {
     Object.assign(this, props);
     this.id = id ?? randomUUID();
+    this.csvUrl = `${process.env.BASE_URL}:${process.env.SERVER_PORT}/report/${this.id}`;
   }
 }
