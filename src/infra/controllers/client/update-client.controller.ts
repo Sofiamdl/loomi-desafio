@@ -50,7 +50,7 @@ export class UpdateClientController {
 
       return { data: result.client };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

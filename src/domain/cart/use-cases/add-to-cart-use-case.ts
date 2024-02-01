@@ -38,14 +38,23 @@ export class AddToCartUseCase
     const product = await this.productRepository.findById(productId);
 
     if (!product) throw new NotFoundException('Product Not Found');
-    if (product.quantity == 0)
-      throw new BadRequestException('Product Not Available');
+    if (product.quantity - quantity <= 0)
+      throw new BadRequestException('Product Amount Not Available');
 
     const order = await this.orderRepository.findById(orderId);
 
     if (!order) throw new NotFoundException('Order Not Found');
     if (order.status != OrderStatus.OPENED)
       throw new BadRequestException('You Cant Update That Order');
+
+    const alreadyHasItem = await this.itemRepository.findOneBy(
+      orderId,
+      productId,
+    );
+
+    if (alreadyHasItem) {
+      throw new BadRequestException('Product Was Already Added To Cart');
+    }
 
     const item = new Item({
       productId,
@@ -56,6 +65,7 @@ export class AddToCartUseCase
     });
 
     const itemCreated = await this.itemRepository.create(item);
+
     const total = await this.itemRepository.findSum(orderId);
     await this.orderRepository.update(orderId, { total });
     return { item: itemCreated };

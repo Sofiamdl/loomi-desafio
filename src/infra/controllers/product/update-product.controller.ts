@@ -45,7 +45,7 @@ export class UpdateProductController {
 
       return { data: result.product };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }
