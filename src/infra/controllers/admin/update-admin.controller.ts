@@ -42,7 +42,7 @@ export class UpdateUserController {
 
       return { data: result.admin };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

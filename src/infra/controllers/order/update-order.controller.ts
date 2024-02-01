@@ -42,7 +42,7 @@ export class UpdateOrderController {
 
       return { data: result.order };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

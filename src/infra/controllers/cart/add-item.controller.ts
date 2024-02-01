@@ -35,8 +35,7 @@ export class AddItemController {
 
       return { data: result.item };
     } catch (err) {
-      console.log(err);
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

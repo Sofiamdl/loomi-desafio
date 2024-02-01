@@ -30,7 +30,7 @@ export class FindUserController {
 
       return { data: result };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

@@ -33,7 +33,7 @@ export class ConfirmPaymentController {
       return { clientSecret };
     } catch (err) {
       console.log(err);
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

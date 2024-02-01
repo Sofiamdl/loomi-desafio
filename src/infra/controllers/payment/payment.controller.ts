@@ -38,7 +38,7 @@ export class PaymentController {
       return { payment_intent };
     } catch (err) {
       console.log(err);
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

@@ -39,7 +39,7 @@ export class CreateAdminController {
 
       return { data: result.user };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }

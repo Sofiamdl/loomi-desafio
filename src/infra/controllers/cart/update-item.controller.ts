@@ -49,7 +49,7 @@ export class UpdateItemController {
 
       return { data: result.item };
     } catch (err) {
-      throw new BadRequestException();
+      throw new BadRequestException(err);
     }
   }
 }
