@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { RegisterUserUseCase } from 'src/domain/client/use-cases/register-user-use-case';
-import { CreateUserController } from './controllers/user/create_user.controller';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from 'src/infra/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
@@ -17,6 +16,7 @@ import { CreateIntentUseCase } from 'src/domain/payment/use-cases/create-intent-
 import { PaymentService } from './controllers/payment/stripe.service';
 import { WebhookController } from './controllers/payment/payment-webhook.controller';
 import { ReportModule } from './controllers/report/report.module';
+import { WebhookUseCase } from 'src/domain/payment/use-cases/webhook-use-case';
 
 @Module({
   imports: [
@@ -29,15 +29,10 @@ import { ReportModule } from './controllers/report/report.module';
     CartModule,
     ReportModule,
   ],
-  controllers: [
-    CreateUserController,
-    PaymentController,
-    ConfirmPaymentController,
-    WebhookController,
-  ],
   providers: [
     RegisterUserUseCase,
     CreateIntentUseCase,
+    WebhookUseCase,
     PaymentService,
     {
       provide: APP_GUARD,
@@ -48,5 +43,6 @@ import { ReportModule } from './controllers/report/report.module';
       useClass: RolesGuard,
     },
   ],
+  controllers: [PaymentController, ConfirmPaymentController, WebhookController],
 })
 export class HttpModule {}

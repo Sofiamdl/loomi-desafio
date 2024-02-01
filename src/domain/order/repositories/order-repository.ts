@@ -6,6 +6,8 @@ export abstract class OrderRepository {
   abstract create(order: Order): Promise<Order>;
   abstract findAll(query: IQueryFindAllOrder): Promise<[Order]>;
   abstract findById(id: string): Promise<Order>;
+  abstract findByPaymentIndent(id: string): Promise<Order>;
+
   abstract update(
     id: string,
     data: {
